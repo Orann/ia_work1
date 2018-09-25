@@ -13,8 +13,14 @@ public class Sensor {
      * This function...
      * @param oldBeliefs 
      */
-    public void updateBeliefs(ArrayList<RoomState> oldBeliefs){
-        
+    public void updateBeliefs(RoomState[][] oldBeliefs){
+        RoomState[][] newBeliefs = environment.getRooms();
+        int size = oldBeliefs.length;
+        for (int i=0; i<size; i++){
+            for (int j=0; j<size; j++){
+                oldBeliefs[i][j] = newBeliefs[i][j];
+            }
+        }
     }
     
     /**
@@ -22,6 +28,6 @@ public class Sensor {
      * @return the performance that was perceived 
      */
     public int performancePerception(){
-        return 0;
+        return environment.getPerformance();
     }    
 }

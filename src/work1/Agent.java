@@ -1,6 +1,5 @@
 package work1;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -8,8 +7,8 @@ import java.util.LinkedList;
  * @authors Claire, Esther & Orann
  */
 public class Agent {
-    ArrayList<RoomState> beliefs;
-    ArrayList<Integer> position;
+    RoomState[][] beliefs;
+    Position position;
     LinkedList<Action> intentions;
     Sensor sensor;
     Effector effector;
@@ -26,7 +25,7 @@ public class Agent {
      * This function...
      */
     public void act(){
-        
+        effector.doAction(intentions, position, intentions.getFirst());
     }
     
 }
