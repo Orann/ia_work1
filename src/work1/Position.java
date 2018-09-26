@@ -28,6 +28,10 @@ public class Position {
      */
     public int getY(){ return y; }
     
+    /**
+     * Update the attribute in function of the action done
+     * @param action 
+     */
     public void move(Action action){
         switch(action){
             case UP :
@@ -45,5 +49,16 @@ public class Position {
             default : 
                 break; 
         }        
+    }
+    
+    /**
+     * Returns the position that comes after the action was done
+     * @param action
+     * @return Position
+     */
+    public Position nextPosition(Action action){
+        Position nextPos = new Position(this);
+        nextPos.move(action);
+        return nextPos;
     }
 }

@@ -7,10 +7,12 @@ package work1;
 public class Node {
     Action action;
     Node parent;
+    Position position;
 
-    public Node(Action action, Node parent) {
+    public Node(Action action, Node parent, Position position) {
         this.action = action;
         this.parent = parent;
+        this.position = position;
     }
 
     public Action getAction() {
@@ -19,6 +21,10 @@ public class Node {
 
     public Node getParent() {
         return parent;
+    }
+
+    public Position getPosition() {
+        return position;
     }
     
     /**

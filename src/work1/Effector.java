@@ -14,10 +14,8 @@ public class Effector {
      * current position of the agent and call environment's method update()
      * @param intentions not empty
      * @param position
-     * @param action
      */
-    public void doAction(LinkedList<Action> intentions, Position position, Action action){
-        // Question : a-t-on réellement besoin de l'argument action, puisque logiquement c'est le premier éléments des intentions ? 
+    public void doAction(LinkedList<Action> intentions, Position position){
         Action act = intentions.pop();
         environment.update(position, act);
         position.move(act);

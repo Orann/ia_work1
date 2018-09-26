@@ -11,7 +11,8 @@ public enum Action {
     RIGHT("right"),
     VACCUM("vaccum"),
     GRAB("grab"),
-    GRABVACCUM("grab and vaccum");
+    GRABVACCUM("grab and vaccum"),
+    NONE("none action");
     
     private String name = "";
     
