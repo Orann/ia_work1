@@ -9,7 +9,9 @@ public class Node {
     private Node parent;
     protected Position position;
 
-    //Contructor
+    /**
+     * Contructor
+     */
     public Node(Action action, Node parent, Position position) {
         this.action = action;
         this.parent = parent;

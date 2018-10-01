@@ -17,7 +17,29 @@ public class Agent {
     Effector effector;
     int explorationFreq;
 
-    //Constructor ?
+    /**
+     * Constructor
+     * @param initialPos initial position of the agent
+     * @param sensor 
+     * @param effector 
+     * @param dimension size of one row or column of the environment
+     */
+    public Agent(Position initialPos, Sensor sensor, Effector effector, int dimension) {
+        this.position = initialPos;
+        this.sensor = sensor;
+        this.effector = effector;
+        this.intentions = new LinkedList<>();
+        this.beliefs = new RoomState[dimension][dimension];
+        for (int i=0; i<dimension; i++){
+            for(int j=0; j<dimension; j++){
+                this.beliefs[i][j] = RoomState.EMPTY;
+            }
+        }
+        this.explorationFreq = 2*dimension+1; // Maximum length of the intention list
+    }
+
+    
+    
     /**
      * Function of exploration with a Breadth First Search algorithm
      */

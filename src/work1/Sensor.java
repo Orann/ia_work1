@@ -1,13 +1,19 @@
 package work1;
 
-import java.util.ArrayList;
-
 /**
  *
  * @authors Claire, Esther & Orann
  */
 public class Sensor {
     Environment environment;
+    
+    /**
+     * Constructor
+     * @param e environment observed by the sensor
+     */
+    public Sensor(Environment e) {
+        environment = e;
+    }
     
     /**
      * This function updates the agent's beliefs by using its sensors to percept the environment
@@ -22,6 +28,7 @@ public class Sensor {
             }
         }
     }
+
     
     /**
      * This function allows the perception of the performance for the agent for it to be able to improve itself

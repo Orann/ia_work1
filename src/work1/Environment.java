@@ -8,11 +8,17 @@ package work1;
 public class Environment {
     RoomState[][] rooms;
     int performance;
-    final int generationFreqJewels = 20;
-    final int generationFreqDust = 50;
-    final int dimension = 10; // size of a row of the matrix
+    int generationFreqJewels = 20;
+    int generationFreqDust = 50;
+    int dimension = 10; // size of a row of the matrix
     
-    public void Environment(){
+    
+    /**
+     * Constructor
+     * @param dim size of one row or column of the environment
+     */
+    public void Environment(int dim){
+        this.dimension = dim;
         performance = 0;
         rooms = new RoomState[dimension][dimension];
         for (int i=0; i<dimension; i++){
@@ -132,6 +138,24 @@ public class Environment {
     @Override
     public String toString(){
         String ret = new String();
+        for (int i=0; i<dimension; i++){
+            for(int j=0; j<dimension; j++){
+                switch(this.rooms[i][j]){
+                    case DUSTJEWEL:
+                        ret = ret.concat("DJ ");
+                        break;
+                    case JEWEL:
+                        ret = ret.concat("J  ");
+                        break;
+                    case DUST:
+                        ret = ret.concat("D  ");
+                        break;
+                    default:
+                        ret = ret.concat("*  ");                        
+                }
+            }
+            ret = ret.concat("\n");
+        }
         return ret;
     }
 }

@@ -9,7 +9,14 @@ import java.util.LinkedList;
 public class Effector {
     Environment environment;
     
-    //Constructor ?
+    
+    /**
+     * Constructor
+     * @param e environment in which the actions will be done
+     */
+    public Effector(Environment e){
+        environment = e;
+    }
     
     
     /**
