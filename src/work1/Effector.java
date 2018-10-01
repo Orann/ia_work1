@@ -9,6 +9,9 @@ import java.util.LinkedList;
 public class Effector {
     Environment environment;
     
+    //Constructor ?
+    
+    
     /**
      * This function removes the current action from the intentions, changes the
      * current position of the agent and call environment's method update()

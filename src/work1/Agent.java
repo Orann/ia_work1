@@ -14,8 +14,11 @@ public class Agent {
     Effector effector;
     int explorationFreq;
     
+    
+    //Constructor ?
+    
     /**
-     * This function explore the rooms with a Breadth First Search algorithm
+     * Function of exploration with a Breadth First Search algorithm
      */
     public void explore(){
         sensor.updateBeliefs(beliefs);
@@ -29,12 +32,13 @@ public class Agent {
         int dim = this.beliefs.length;
         int compt = 0;
         Node currentNode = frontier.pop();
-        Position nextPosition = currentNode.getPosition(); // La position des fils du noeud courant
+        Position nextPosition = currentNode.getPosition(); // Position of the children of the current node
         Action currentAction = currentNode.getAction();
         
         
         boolean stop = currentNode.isSuccess(beliefs[nextPosition.getX()][nextPosition.getY()]);        
         
+        // This function can stop if we have explored everything, which is one step more than the number of ??
         //On peut s'arrêter quand on a tout exploré, ce qui prend une étape de plus que la dimension
         //Au max la dimension pour atteindre toutes les cases
         //Et la dernière étape pour explorer la dernière case 
@@ -67,7 +71,7 @@ public class Agent {
             compt++;
         }
         
-        //On remonte tout l'arbre à partir du noeud courant pour construire la liste des intentions
+        //We build the list of intentions thanks to the path to the current node
         if(stop){
             while(currentNode != null){
                 intentions.addFirst(currentNode.getAction());

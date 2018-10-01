@@ -12,7 +12,7 @@ public enum RoomState {
     
     private String name = "";
     
-    //Constructeur
+    //Constructor
     RoomState(String name){
         this.name = name;
     }

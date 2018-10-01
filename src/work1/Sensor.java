@@ -10,7 +10,7 @@ public class Sensor {
     Environment environment;
     
     /**
-     * This function...
+     * This function updates the agent's beliefs by using its sensors to percept the environment
      * @param oldBeliefs 
      */
     public void updateBeliefs(RoomState[][] oldBeliefs){
@@ -24,7 +24,7 @@ public class Sensor {
     }
     
     /**
-     * This function...
+     * This function allows the perception of the performance for the agent for it to be able to improve itself
      * @return the performance that was perceived 
      */
     public int performancePerception(){

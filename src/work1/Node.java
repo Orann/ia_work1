@@ -2,19 +2,21 @@ package work1;
 
 /**
  *
- * @author Claire, Esther, Orann
+ * @author Claire, Esther & Orann
  */
 public class Node {
     Action action;
     Node parent;
     Position position;
 
+    //Contructor
     public Node(Action action, Node parent, Position position) {
         this.action = action;
         this.parent = parent;
         this.position = position;
     }
 
+    //Getters
     public Action getAction() {
         return action;
     }
@@ -28,9 +30,9 @@ public class Node {
     }
     
     /**
-     * This function teste la condition d'arrêt.
+     * This function tests the stopping condition of the exploration algorithm
      * @param roomState
-     * @return 
+     * @return true or false
      */
     public boolean isSuccess(RoomState roomState){
         boolean result = false;

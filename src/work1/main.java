@@ -7,7 +7,7 @@ package work1;
 
 /**
  *
- * @author orann
+ * @authors Claire, Esther & Orann
  * 
  */
 public class main {

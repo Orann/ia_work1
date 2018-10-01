@@ -8,11 +8,13 @@ public class Position {
     private int x;
     private int y;
     
+    //Constructor 1
     public Position(int x, int y){
         this.x = x;
         this.y = y;
     }
     
+    //Constructor 2
     public Position (Position p){
         this.x = p.getX();
         this.y = p.getY();
@@ -29,7 +31,7 @@ public class Position {
     public int getY(){ return y; }
     
     /**
-     * Update the attribute in function of the action done
+     * Updates the attribute in function of the action done
      * @param action 
      */
     public void move(Action action){
