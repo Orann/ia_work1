@@ -5,9 +5,9 @@ package work1;
  * @author Claire, Esther & Orann
  */
 public class Node {
-    Action action;
-    Node parent;
-    Position position;
+    protected Action action;
+    private Node parent;
+    protected Position position;
 
     //Contructor
     public Node(Action action, Node parent, Position position) {

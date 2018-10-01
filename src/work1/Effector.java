@@ -19,9 +19,12 @@ public class Effector {
      * @param position
      */
     public void doAction(LinkedList<Action> intentions, Position position){
-        Action act = intentions.pop();
-        environment.update(position, act);
-        position.move(act);
+        Action act;
+        while (!intentions.isEmpty()) {
+            act = intentions.pop();
+            environment.update(position, act);
+            position.move(act);
+        }
     }
     
 }
