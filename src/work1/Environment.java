@@ -10,14 +10,13 @@ public class Environment {
     int performance;
     int generationFreqJewels = 20;
     int generationFreqDust = 50;
-    int dimension = 10; // size of a row of the matrix
-    
+    int dimension = 10; // size of a row of the matrix   
     
     /**
      * Constructor
      * @param dim size of one row or column of the environment
      */
-    public void Environment(int dim){
+    public Environment(int dim){
         this.dimension = dim;
         performance = 0;
         rooms = new RoomState[dimension][dimension];
@@ -31,9 +30,9 @@ public class Environment {
     /**
      * This function is called with a defined interval in the variable generationFreqDust and generates dust in the environment.
      */
-    private void generateDust(){
-        int i = (int)(Math.random()*(dimension+1));
-        int j = (int)(Math.random()*(dimension+1));
+    public void generateDust(){
+        int i = (int)(Math.random()*(dimension));
+        int j = (int)(Math.random()*(dimension));
         switch(rooms[i][j]){
             case EMPTY :
                 rooms[i][j] = RoomState.DUST;
@@ -49,9 +48,9 @@ public class Environment {
     /**
      * this function is called with a defined interval in the variable generationFreqJewels and generates jewel in the environment.
      */
-    private void genereateJewels(){
-        int i = (int)(Math.random()*(dimension+1));
-        int j = (int)(Math.random()*(dimension+1));
+    public void genereateJewels(){
+        int i = (int)(Math.random()*(dimension));
+        int j = (int)(Math.random()*(dimension));
         switch(rooms[i][j]){
             case EMPTY :
                 rooms[i][j] = RoomState.JEWEL;

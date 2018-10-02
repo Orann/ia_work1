@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/Esther/Documents/GitHub/ia_work1/src/work1/main.java</file>
-            <file>file:/Users/Esther/Documents/GitHub/ia_work1/src/work1/Effector.java</file>
-            <file>file:/Users/Esther/Documents/GitHub/ia_work1/src/work1/Action.java</file>
-            <file>file:/Users/Esther/Documents/GitHub/ia_work1/src/work1/RoomState.java</file>
-            <file>file:/Users/Esther/Documents/GitHub/ia_work1/src/work1/Sensor.java</file>
-            <file>file:/Users/Esther/Documents/GitHub/ia_work1/src/work1/Agent.java</file>
-            <file>file:/Users/Esther/Documents/GitHub/ia_work1/src/work1/Node.java</file>
+            <file>file:/home/orann/Documents/UQAC/Trimestre1/IA/Devoir1/work1/src/work1/main.java</file>
+            <file>file:/home/orann/Documents/UQAC/Trimestre1/IA/Devoir1/work1/src/work1/RoomState.java</file>
+            <file>file:/home/orann/Documents/UQAC/Trimestre1/IA/Devoir1/work1/src/work1/Sensor.java</file>
+            <file>file:/home/orann/Documents/UQAC/Trimestre1/IA/Devoir1/work1/src/work1/Node.java</file>
+            <file>file:/home/orann/Documents/UQAC/Trimestre1/IA/Devoir1/work1/src/work1/Agent.java</file>
+            <file>file:/home/orann/Documents/UQAC/Trimestre1/IA/Devoir1/work1/src/work1/Effector.java</file>
+            <file>file:/home/orann/Documents/UQAC/Trimestre1/IA/Devoir1/work1/src/work1/Position.java</file>
+            <file>file:/home/orann/Documents/UQAC/Trimestre1/IA/Devoir1/work1/src/work1/Environment.java</file>
         </group>
     </open-files>
 </project-private>
