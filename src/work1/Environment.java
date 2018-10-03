@@ -7,23 +7,31 @@ package work1;
  */
 public class Environment {
     RoomState[][] rooms;
+    Position positionAgent;
     int performance;
-    int generationFreqJewels = 20;
-    int generationFreqDust = 50;
+    int generationFreqDust = 10;
+    int generationFreqJewels = generationFreqDust*3;
     int dimension = 10; // size of a row of the matrix   
     
     /**
      * Constructor
      * @param dim size of one row or column of the environment
+     * @param positionAgent
      */
-    public Environment(int dim){
+    public Environment(int dim, Position positionAgent){
         this.dimension = dim;
+        this.positionAgent = new Position(positionAgent);
         performance = 0;
         rooms = new RoomState[dimension][dimension];
         for (int i=0; i<dimension; i++){
             for (int j=0; j<dimension; j++){
                 rooms[i][j] = RoomState.EMPTY;
             }
+        }
+        
+        for(int i = 0 ; i < 10 ; i++){
+            this.generateDust();
+            if(i%2==0) this.genereateJewels();
         }
     }
     
@@ -102,6 +110,16 @@ public class Environment {
     public RoomState[][] getRooms() {
         return rooms;
     }
+
+    public int getGenerationFreqJewels() {
+        return generationFreqJewels;
+    }
+
+    public int getGenerationFreqDust() {
+        return generationFreqDust;
+    }
+    
+    
     
     /**
      * 
@@ -131,14 +149,21 @@ public class Environment {
                 break;
         }
         calculatePerformance();
+        System.out.println(this);
         
     }
     
     @Override
-    public String toString(){
+    public String toString(){ 
         String ret = new String();
         for (int i=0; i<dimension; i++){
             for(int j=0; j<dimension; j++){
+                if (positionAgent.getX() == i && positionAgent.getY() == j){
+                    ret = ret.concat("A");
+                }
+                else{
+                    ret = ret.concat(" ");
+                }
                 switch(this.rooms[i][j]){
                     case DUSTJEWEL:
                         ret = ret.concat("DJ ");
@@ -155,6 +180,6 @@ public class Environment {
             }
             ret = ret.concat("\n");
         }
-        return ret;
+        return (ret);
     }
 }

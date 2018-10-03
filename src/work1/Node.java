@@ -37,6 +37,7 @@ public class Node {
      * @return true or false
      */
     public boolean isSuccess(RoomState roomState){
+        System.out.println(roomState);
         boolean result = false;
         switch(roomState){
             case DUST :
@@ -57,6 +58,7 @@ public class Node {
             default:
                 break;
         }
+        System.out.println(result);
         return result;
     }  
 }

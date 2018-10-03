@@ -10,35 +10,36 @@ import java.util.logging.Logger;
  *
  */
 public class main {
+    
+    final static int exploration_algorithm = 0; //0 for uninformed or 1 for informed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Environment environment = new Environment(10);
-        
-        Sensor sensor = new Sensor(environment);
-        Effector effector = new Effector(environment);
-        
         int x = (int)(Math.random() * 10);
         int y = (int)(Math.random() * 10);
-        Agent agent = new Agent(new Position(x, y), sensor, effector, 10);
+        Environment environment = new Environment(10, new Position(x, y));
         
-        for(int i = 0 ; i < 10 ; i++){
-            environment.generateDust();
-            if(i%2==0) environment.genereateJewels();
-        }
+        Sensor sensor = new Sensor(environment);
+        Effector effector = new Effector(environment);       
+        Agent agent = new Agent(new Position(x, y), sensor, effector, 10);       
         
         Runnable run_environment = new Runnable() {
             public void run() {
                 System.out.println("Environment is running...");
+                System.out.println(environment);
+                int freqJewels = environment.getGenerationFreqJewels();
+                int freqDust = environment.getGenerationFreqDust();
                 while(true){
-                    System.out.println(environment);
-                    
-                    try {
-                        TimeUnit.SECONDS.sleep(30);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    for(int i = 0 ; i < 3 ; i++){
+                        environment.generateDust();
+                        if(i == 2) environment.genereateJewels();
+                        try {
+                            TimeUnit.SECONDS.sleep(freqDust);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -48,13 +49,10 @@ public class main {
             public void run() {
                 System.out.println("Agent is running...");
                 while(true){
-                    System.out.println("Agent : I'm alive");
+                    if(exploration_algorithm == 0) agent.exploreUninformed();
+                    else agent.exploreInformed();
                     
-                    try {
-                        TimeUnit.SECONDS.sleep(10);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    agent.act();
                 }
             }
         };
