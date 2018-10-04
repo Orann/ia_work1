@@ -49,8 +49,19 @@ public class main {
             public void run() {
                 System.out.println("Agent is running...");
                 while(true){
+                    agent.updateAgentState();
+                    if(!agent.goal()){ 
+                        //if the agent hasn't accomplished its goals, it has to explore the environment and act
                     if(exploration_algorithm == 0) agent.exploreUninformed();
                     else agent.exploreInformed();
+                    } else {
+                        //if the agent has accomplished its goals, it waits for 30 seconds before starting its work again
+                        try {
+                            TimeUnit.SECONDS.sleep(30);
+                            } catch (InterruptedException ex) {
+                             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                    }
                     
                     agent.act();
                 }

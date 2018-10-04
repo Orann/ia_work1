@@ -5,14 +5,14 @@ package work1;
  * @authors Claire, Esther & Orann
  */
 public enum Action {
-    UP("up"),
-    DOWN("down"),
-    LEFT("left"),
-    RIGHT("right"),
-    VACCUM("vaccum"),
-    GRAB("grab"),
-    GRABVACCUM("grab and vaccum"),
-    NONE("none action");
+    UP("Up"),
+    DOWN("Down"),
+    LEFT("Left"),
+    RIGHT("Right"),
+    VACCUM("Vaccum"),
+    GRAB("Grab"),
+    GRABVACCUM("Grab and vaccum"),
+    NONE("No action - Initial state");
     
     private String name = "";
     

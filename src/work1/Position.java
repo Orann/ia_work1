@@ -37,10 +37,10 @@ public class Position {
     public void move(Action action){
         switch(action){
             case UP :
-                x = x + 1 ;
+                x = x - 1 ;
                 break;
             case DOWN :
-                x = x - 1 ;
+                x = x + 1 ;
                 break;
             case LEFT :
                 y = y - 1 ;

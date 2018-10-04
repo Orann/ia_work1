@@ -134,6 +134,7 @@ public class Environment {
      * @param action 
      */
     public void update(Position position, Action action){
+        positionAgent = position.nextPosition(action);
         switch(action){
             case VACCUM : 
                 removeDust(position.getX(), position.getY());

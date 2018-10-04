@@ -33,7 +33,7 @@ public class Effector {
         Action act;
         while (!intentions.isEmpty()) {
             act = intentions.pop();
-            System.out.println(act);
+            System.out.println("Action executed : " + act);
             environment.update(position, act);
             position.move(act);
             //The agent takes 5 seconds to execute his intention :

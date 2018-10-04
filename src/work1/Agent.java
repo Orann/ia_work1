@@ -10,9 +10,9 @@ import java.util.LinkedList;
  */
 public class Agent {
 
-    RoomState[][] beliefs;
+    RoomState[][] beliefs; //BELIEFS
     Position position;
-    LinkedList<Action> intentions;
+    LinkedList<Action> intentions; //INTENTIONS
     Sensor sensor;
     Effector effector;
     int explorationFreq;
@@ -36,22 +36,43 @@ public class Agent {
         }
         this.explorationFreq = 2*dimension+1; // Maximum length of the intention list
     }
+    
+    /* 
+     * Function that expresses the agent's goals/desires
+     * DESIRE
+    */
+    public boolean goal(){
+        boolean goalSuccess=true;
+        // The agent's goal is only accomplished if all the rooms are empty of jewels and dust
+        for(int i=0; i<this.beliefs.length; i++){
+            for(int j=0; j<this.beliefs.length; j++){
+               if(this.beliefs[i][j] != RoomState.EMPTY){
+                goalSuccess=false;
+                }
+            }
+        }
+               return goalSuccess;
+    }
 
+    /**
+     *  Function of update of its inner state thanks to the sensor's perceptions
+     */
+    public void updateAgentState() {
+         sensor.updateBeliefs(beliefs);
+    }
     
     
     /**
      * Function of exploration with a Breadth First Search algorithm
      */
     public void exploreUninformed() {
-        sensor.updateBeliefs(beliefs);
-
-        //Initialisation of the frontier
+       
+        //Initialisation of the frontier to explore
         LinkedList<Node> frontier = new LinkedList<>();
         frontier.add(new Node(Action.NONE, null, new Position(this.position)));
 
         int dim = this.beliefs.length;
-        System.out.println(dim);
-        int compt = 0;
+        
         Node currentNode = frontier.pop();
         Position currentPosition = currentNode.getPosition(); // Position of the children of the current node
         Action currentAction = currentNode.getAction();
@@ -60,32 +81,39 @@ public class Agent {
 
         // This function can stop if we have explored everything, which is one step more than the number of 
         while (!stop) {
-            System.out.println("Action en cours d'exploration : " + currentAction);
 
             if (!(currentAction.equals(Action.GRABVACCUM)
                     || currentAction.equals(Action.GRAB)
-                    || currentAction.equals(Action.VACCUM)
-                    || (currentPosition.getX() > dim) || (currentPosition.getX() < 0)
-                    || (currentPosition.getY() > dim) || (currentPosition.getY() < 0))) {
+                    || currentAction.equals(Action.VACCUM))){
                 frontier.addLast(new Node(Action.GRABVACCUM, currentNode, currentPosition.nextPosition(Action.GRABVACCUM)));
                 frontier.addLast(new Node(Action.GRAB, currentNode, currentPosition.nextPosition(Action.GRAB)));
                 frontier.addLast(new Node(Action.VACCUM, currentNode, currentPosition.nextPosition(Action.VACCUM)));
-                frontier.addLast(new Node(Action.LEFT, currentNode, currentPosition.nextPosition(Action.LEFT)));
+                if(currentPosition.getY() > 0){
+                    frontier.addLast(new Node(Action.LEFT, currentNode, currentPosition.nextPosition(Action.LEFT)));
+                    }
+                if(currentPosition.getY() < (dim - 1)){
                 frontier.addLast(new Node(Action.RIGHT, currentNode, currentPosition.nextPosition(Action.RIGHT)));
+                }
+                if(currentPosition.getX() > 0){
                 frontier.addLast(new Node(Action.UP, currentNode, currentPosition.nextPosition(Action.UP)));
+                }
+                if(currentPosition.getX() < (dim - 1)){
                 frontier.addLast(new Node(Action.DOWN, currentNode, currentPosition.nextPosition(Action.DOWN)));
+                }
             }
 
             currentNode = frontier.pop();
-            stop = currentNode.isSuccess(beliefs[currentNode.getPosition().getX()][currentNode.getPosition().getY()]);
-            System.out.println("isSuccess ? :"+ stop);
             currentAction = currentNode.getAction();
-            currentPosition = currentPosition.nextPosition(currentAction);
+            currentPosition = currentNode.getPosition();
+            stop = currentNode.isSuccess(beliefs[currentPosition.getX()][currentPosition.getY()]);
+          /*
+            UNCOMMENT FOR MORE DETAILS ABOUT THE EXPLORATION IN THE TERMINAL
+            
+            System.out.println("Noeud exploré : " + currentNode.getAction() + " et parent : " + currentNode.getParent().getAction());
+            System.out.println("Success ? "+ stop);
+          */
 
-            compt++;
         }
-
-        System.out.println(stop);
         //We build the list of intentions thanks to the path to the current node
         if (stop) {
             while (currentNode != null) {
@@ -97,39 +125,41 @@ public class Agent {
     }
 
     public void exploreInformed() {
-        System.out.println("Agent is exploring");
-        sensor.updateBeliefs(beliefs);
 
         //Initialisation of the frontier
         LinkedList<NodeInformed> frontier = new LinkedList<>();
         frontier.add(new NodeInformed(Action.NONE, null, new Position(this.position)));
 
         int dim = this.beliefs.length;
-        int compt = 0;
+        
         NodeInformed currentNode = frontier.pop();
-        Position nextPosition = currentNode.getPosition(); // Position of the children of the current node
-        Action currentAction = currentNode.getAction();
+        Position currentPosition = currentNode.getPosition(); // Position of the current node
+        Action currentAction = currentNode.getAction(); // Action of the current node
 
-        boolean stop = currentNode.isSuccess(beliefs[nextPosition.getX()][nextPosition.getY()]);
+        boolean stop = currentNode.isSuccess(beliefs[currentPosition.getX()][currentPosition.getY()]);
 
-        while (!stop && (compt <= (dim + 1))) {
-            System.out.println("Action en cours d'exploration : " + currentAction);
+        while (!stop) {
 
             if (!(currentAction.equals(Action.GRABVACCUM)
                     || currentAction.equals(Action.GRAB)
-                    || currentAction.equals(Action.VACCUM)
-                    || (nextPosition.getX() >= dim) || (nextPosition.getX() < 0)
-                    || (nextPosition.getY() >= dim) || (nextPosition.getY() < 0))) {
-                frontier.addLast(new NodeInformed(Action.GRABVACCUM, currentNode, nextPosition));
-                frontier.addLast(new NodeInformed(Action.GRAB, currentNode, nextPosition));
-                frontier.addLast(new NodeInformed(Action.VACCUM, currentNode, nextPosition));
-                frontier.addLast(new NodeInformed(Action.LEFT, currentNode, nextPosition));
-                frontier.addLast(new NodeInformed(Action.RIGHT, currentNode, nextPosition));
-                frontier.addLast(new NodeInformed(Action.UP, currentNode, nextPosition));
-                frontier.addLast(new NodeInformed(Action.DOWN, currentNode, nextPosition));
+                    || currentAction.equals(Action.VACCUM))){
+                frontier.addLast(new NodeInformed(Action.GRABVACCUM, currentNode, currentPosition.nextPosition(Action.GRABVACCUM)));
+                frontier.addLast(new NodeInformed(Action.GRAB, currentNode, currentPosition.nextPosition(Action.GRAB)));
+                frontier.addLast(new NodeInformed(Action.VACCUM, currentNode, currentPosition.nextPosition(Action.VACCUM)));
+                if(currentPosition.getY() > 0){
+                    frontier.addLast(new NodeInformed(Action.LEFT, currentNode, currentPosition.nextPosition(Action.LEFT)));
+                    }
+                if(currentPosition.getY() < (dim - 1)){
+                frontier.addLast(new NodeInformed(Action.RIGHT, currentNode, currentPosition.nextPosition(Action.RIGHT)));
+                }
+                if(currentPosition.getX() > 0){
+                frontier.addLast(new NodeInformed(Action.UP, currentNode, currentPosition.nextPosition(Action.UP)));
+                }
+                if(currentPosition.getX() < (dim - 1)){
+                frontier.addLast(new NodeInformed(Action.DOWN, currentNode, currentPosition.nextPosition(Action.DOWN)));
+                }
             }
 
-            System.out.println("Tri frontiere");
             Collections.sort(frontier, new Comparator<NodeInformed>() {
                 @Override
                 public int compare(NodeInformed o1, NodeInformed o2) {
@@ -146,17 +176,20 @@ public class Agent {
             });
 
             currentNode = frontier.pop();
-            stop = currentNode.isSuccess(beliefs[currentNode.getPosition().getX()][currentNode.getPosition().getY()]);
-            System.out.println(stop);
             currentAction = currentNode.getAction();
-            nextPosition = nextPosition.nextPosition(currentAction);
-
-            compt++;
+            currentPosition = currentNode.getPosition();
+            stop = currentNode.isSuccess(beliefs[currentNode.getPosition().getX()][currentNode.getPosition().getY()]);
+            
+             /*
+            UNCOMMENT FOR MORE DETAILS ABOUT THE EXPLORATION IN THE TERMINAL
+            
+            System.out.println("Noeud exploré : " + currentNode.getAction() + " et parent : " + currentNode.getParent().getAction());
+            System.out.println("Success ? "+ stop);
+          */
         }
 
         //We build the list of intentions thanks to the path to the current node
         if (stop) {
-            System.out.println("Stop");
             while (currentNode != null) {
                 intentions.addFirst(currentNode.getAction());
                 currentNode = currentNode.getParent();
@@ -165,11 +198,9 @@ public class Agent {
     }
 
     /**
-     * This function...
+     * This function executes the list of intentions of the agent
      */
-    public void act() {
-        //Si cette fonction est censé vider la liste d'intentions, 
-        //il va falloir mettre un while quelque part
+    public void act(){
         effector.doAction(intentions, position);
     }
 
