@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  */
 public class main {
     
-    final static int exploration_algorithm = 0; //0 for uninformed or 1 for informed
+    final static int explorationAlgorithm = 1; //0 for uninformed or 1 for informed
 
     /**
      * @param args the command line arguments
@@ -29,7 +29,6 @@ public class main {
             public void run() {
                 System.out.println("Environment is running...");
                 System.out.println(environment);
-                int freqJewels = environment.getGenerationFreqJewels();
                 int freqDust = environment.getGenerationFreqDust();
                 while(true){
                     for(int i = 0 ; i < 3 ; i++){
@@ -52,7 +51,7 @@ public class main {
                     agent.updateAgentState();
                     if(!agent.goal()){ 
                         //if the agent hasn't accomplished its goals, it has to explore the environment and act
-                    if(exploration_algorithm == 0) agent.exploreUninformed();
+                    if(explorationAlgorithm == 0) agent.exploreUninformed();
                     else agent.exploreInformed();
                     } else {
                         //if the agent has accomplished its goals, it waits for 30 seconds before starting its work again

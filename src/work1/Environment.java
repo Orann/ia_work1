@@ -124,8 +124,26 @@ public class Environment {
     /**
      * 
      */
-    private void calculatePerformance(){
-        
+    private void calculatePerformance(Position position, Action action){
+        int perf = performance;
+        RoomState currentState = rooms[position.getX()][position.getY()];
+        switch(action){
+            case GRABVACCUM :
+                perf += 32;
+                break;
+            case GRAB :
+                perf +=17;
+                break;
+            case VACCUM :
+                if (currentState == RoomState.DUSTJEWEL) perf -=40;
+                perf +=15;
+                break;
+            case NONE :
+                break;
+            default:
+                perf-=5;                
+        }
+        this.performance = perf;
     }
     
     /**
@@ -149,7 +167,7 @@ public class Environment {
             default:
                 break;
         }
-        calculatePerformance();
+        calculatePerformance(position, action);
         System.out.println(this);
         
     }
@@ -181,6 +199,7 @@ public class Environment {
             }
             ret = ret.concat("\n");
         }
+        ret = ret.concat("Agent's performance :" + this.performance  + "\n");
         return (ret);
     }
 }

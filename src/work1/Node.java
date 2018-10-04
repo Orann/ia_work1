@@ -58,5 +58,10 @@ public class Node {
                 break;
         }
         return result;
-    }  
+    }
+    
+    @Override
+    public String toString(){
+        return this.action.toString();
+    }
 }
