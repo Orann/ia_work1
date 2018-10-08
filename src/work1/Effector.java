@@ -1,5 +1,6 @@
 package work1;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -7,7 +8,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @authors Claire, ESther & Orann
+ * @authors Claire, Esther & Orann
  */
 public class Effector {
 
@@ -24,14 +25,19 @@ public class Effector {
 
     /**
      * This function removes the current action from the intentions, changes the
-     * current position of the agent and call environment's method update()
+     * current position of the agent and call environment's method update() If
+     * the agent exceeds the time of the exploration frequency, his list of
+     * intentions is emptied and he restarts an exploration.
      *
      * @param intentions not empty
      * @param position
      */
-    public void doAction(LinkedList<Action> intentions, Position position) {
+    public boolean doAction(LinkedList<Action> intentions, Position position, int freqExploration) {
+        boolean doExploration = false;
+        long startTime = System.currentTimeMillis();
+        long elapsedTime = 0L;
         Action act;
-        while (!intentions.isEmpty()) {
+        while (!intentions.isEmpty() && elapsedTime < freqExploration * 1000) {
             act = intentions.pop();
             System.out.println("Action executed : " + act);
             environment.update(position, act);
@@ -42,7 +48,12 @@ public class Effector {
             } catch (InterruptedException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
+            elapsedTime = (new Date()).getTime() - startTime;
         }
+        if (!intentions.isEmpty()) {
+            intentions.clear();
+            doExploration = true;
+        }
+        return doExploration;
     }
-
 }

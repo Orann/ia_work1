@@ -13,17 +13,15 @@ public enum Action {
     GRAB("Grab"),
     GRABVACCUM("Grab and vaccum"),
     NONE("No action - Initial state");
-    
+
     private String name = "";
-    
-    //Constructor
-    Action(String name){
+
+    Action(String name) {
         this.name = name;
     }
-   
+
     @Override
-    public String toString(){
+    public String toString() {
         return name;
     }
-    
 }

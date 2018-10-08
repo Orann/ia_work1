@@ -9,16 +9,15 @@ public enum RoomState {
     DUST("the room contains dust"),
     JEWEL("the room contains jewel"),
     DUSTJEWEL("the room contains dust and jewel");
-    
+
     private String name = "";
-    
-    //Constructor
-    RoomState(String name){
+
+    RoomState(String name) {
         this.name = name;
     }
-   
-    public String toString(){
+
+    public String toString() {
         return name;
     }
-    
+
 }
