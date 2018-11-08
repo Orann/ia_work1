@@ -98,7 +98,7 @@ public class Agent {
                 explorationFreq = keyOfMaxValue + 2;
             }
         }
-        System.out.println("The agent explore every " + explorationFreq + "seconds.");
+        System.out.println("The agent explores every " + explorationFreq + "seconds.");
         //System.out.println(explorationFreqAndPerformance);
     }
 
